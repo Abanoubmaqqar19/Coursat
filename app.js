@@ -1,4 +1,5 @@
 const express = require("express");
+const courseRoutes = require("./src/routes/courses.route");
 const app = express();
 
 
@@ -8,11 +9,11 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to Coursat API" });
 });
 
-app.use("/api/User");
-app.use("/api/Course");
-app.use("/api/Lesson");
-app.use("/api/Enrollment");
-app.use("/api/Comment");
+// app.use("/api/User");
+app.use("/api/Course", courseRoutes);
+// app.use("/api/Lesson");
+// app.use("/api/Enrollment");
+// app.use("/api/Comment");
 
 
 app.use((req, res) => {
