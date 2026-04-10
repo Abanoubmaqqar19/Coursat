@@ -2,7 +2,8 @@ const express = require("express");
 const courseRoutes = require("./src/routes/courses.route");
 const lessonRoutes = require("./src/routes/lesson.route");
 const enrollmentRoutes = require("./src/routes/enrollment.route");
-const commentsRouter= require("./src/routes/comment.route")
+const commentsRouter = require("./src/routes/comment.route")
+const errorMiddleware = require("./src/middleware/globlalErrorMiddleware");
 const app = express();
 
 
@@ -27,7 +28,7 @@ app.use((req, res) => {
   });
 });
 
-
+app.use(errorMiddleware);
 
 
 module.exports = app;

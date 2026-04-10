@@ -1,13 +1,23 @@
 const mongoose = require("mongoose");
 const Enrollment = require("../models/enrollment.model");
 
-const enroll = async (req, res) => {
+/**
+ * ENROLL IN COURSE
+ */
+const enroll = async (req, res, next) => {
   try {
-    const dummyStudentId = new mongoose.Types.ObjectId(); // generate new ObjectId
-      const courseId = req.params.courseId;
-      //* chang id when do auth
-    const studentId = dummyStudentId;
+    const { courseId } = req.params;
+    const studentId = req.user._id;
 
+    // Validate courseId
+    if (!mongoose.Types.ObjectId.isValid(courseId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid course ID",
+      });
+    }
+
+    // Check if already enrolled
     const existing = await Enrollment.findOne({
       student: studentId,
       course: courseId,
@@ -16,10 +26,11 @@ const enroll = async (req, res) => {
     if (existing) {
       return res.status(400).json({
         success: false,
-        message: "Already enrolled",
+        message: "Already enrolled in this course",
       });
     }
 
+    // Create enrollment
     const enrollment = await Enrollment.create({
       student: studentId,
       course: courseId,
@@ -27,73 +38,80 @@ const enroll = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      data: enrollment,
       message: "Enrolled successfully",
+      data: enrollment,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    next(error);
   }
 };
 
-
-const getMyCourses = async (req, res) => {
+/**
+ * GET MY ENROLLED COURSES
+ */
+const getMyCourses = async (req, res, next) => {
   try {
+    const studentId = req.user._id;
 
-    const studentId = new mongoose.Types.ObjectId();
-
-    
     const enrollments = await Enrollment.find({
-      student: studentId 
-    }).populate('course');
-      if (enrollments.length==0) {
-        return res.status(200).json({
-          success: true,
-          message: "You not enrrolled in any  courses",
-        });
-      }
+      student: studentId,
+    }).populate("course");
 
     res.status(200).json({
       success: true,
-      count: enrollments.length ,
-      data: enrollments
+      count: enrollments.length,
+      data: enrollments,
     });
-
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    next(error);
   }
 };
-const unEnroll = async (req, res) => {
-  try {
-    const courseId  = req.params.courseId;
-      const studentId = new mongoose.Types.ObjectId();
 
+/**
+ * UNENROLL FROM COURSE
+ */
+const unEnroll = async (req, res, next) => {
+  try {
+    const { courseId } = req.params;
+    const studentId = req.user._id;
+
+    // Validate courseId
+    if (!mongoose.Types.ObjectId.isValid(courseId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid course ID",
+      });
+    }
+
+    // Find enrollment
     const enrollment = await Enrollment.findOne({
       student: studentId,
-      course:  courseId,
+      course: courseId,
     });
 
     if (!enrollment) {
       return res.status(404).json({
         success: false,
-        message: "You not enrrolled in this course"
+        message: "You are not enrolled in this course",
       });
     }
 
-    await enrollment.deleteOne(enrollment);
+    await enrollment.deleteOne();
 
     res.status(200).json({
       success: true,
-      message: "you unEnroll  in this course now"
+      message: "Unenrolled successfully",
     });
-
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    next(error);
   }
 };
 
-
+/**
+ * EXPORT CONTROLLER
+ */
 module.exports = {
-    enroll,
-    getMyCourses,
-    unEnroll
+  enroll,
+  getMyCourses,
+  unEnroll,
 };

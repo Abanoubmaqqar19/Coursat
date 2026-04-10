@@ -4,12 +4,14 @@ const {
   unEnroll,
   getMyCourses,
 } = require("../controllers/enrollment.controller");
+const { createEnrollmentSchema } = require("../validation/enrollmentValidation");
+const validator = require("../middleware/validator");
 //*controller methods
 
 
-router.post("/:courseId", enroll);
-router.get("/my-courses", getMyCourses);
-router.delete("/:courseId", unEnroll);
+router.post("/:courseId", validator(createEnrollmentSchema), enroll);
+router.get("/my-courses", validator(createEnrollmentSchema), getMyCourses);
+router.delete("/:courseId", validator(createEnrollmentSchema), unEnroll);
 
 
 
