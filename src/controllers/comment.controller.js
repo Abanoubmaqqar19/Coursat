@@ -1,23 +1,17 @@
 const Comment = require("../models/Comment.model");
-const mongoose = require("mongoose");
 
-const addComment = async (req, res) => {
+/**
+ * ADD COMMENT
+ */
+const addComment = async (req, res, next) => {
   try {
     const { text } = req.body;
-    const lessonId = req.params.lessonId;
-    const studentId = new mongoose.Types.ObjectId();
-
-    if (!text || !lessonId) {
-      return res.status(400).json({
-        success: false,
-        message: "Text and lessonId are required",
-      });
-    }
+    const { lessonId } = req.params;
 
     const comment = await Comment.create({
       text,
       lesson: lessonId,
-      student: studentId,
+      student: req.user.id, // from auth middleware
     });
 
     res.status(201).json({
@@ -25,17 +19,22 @@ const addComment = async (req, res) => {
       data: comment,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    next(error);
   }
 };
 
-const getComments = async (req, res) => {
+/**
+ * GET COMMENTS BY LESSON
+ */
+const getComments = async (req, res, next) => {
   try {
-    const lessonId = req.params.lessonId;
+    const { lessonId } = req.params;
 
-    const allComments = await Comment.find({ lesson: lessonId });
+    const comments = await Comment.find({ lesson: lessonId })
+      .populate("student", "name email") 
+      .sort({ createdAt: -1 });
 
-    if (allComments.length === 0) {
+    if (!comments.length) {
       return res.status(404).json({
         success: false,
         message: "No comments found",
@@ -44,34 +43,41 @@ const getComments = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      count: allComments.length,
-      data: allComments,
+      count: comments.length,
+      data: comments,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    next(error);
   }
 };
-const deleteComment = async (req, res) => {
-  try {
-    const commentId = req.params.id;
 
-    const comment = await Comment.findByIdAndDelete(commentId);
+/**
+ * DELETE COMMENT
+ */
+const deleteComment = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const comment = await Comment.findByIdAndDelete(id);
 
     if (!comment) {
       return res.status(404).json({
         success: false,
-        message: "Comment not found"
+        message: "Comment not found",
       });
     }
 
     res.status(200).json({
       success: true,
-      message: "Comment deleted successfully"
+      message: "Comment deleted successfully",
     });
-
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    next(error);
   }
 };
 
-module.exports = { deleteComment, addComment, getComments };
+module.exports = {
+  addComment,
+  getComments,
+  deleteComment,
+};
