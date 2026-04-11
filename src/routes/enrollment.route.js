@@ -1,26 +1,15 @@
+// enrollment.routes.js
 const router = require("express").Router();
+const { protect } = require("../middleware/auth.middleware");
+const { restrictTo } = require("../middleware/role.middleware");
 const {
   enroll,
-  unEnroll,
   getMyCourses,
+  unEnroll,
 } = require("../controllers/enrollment.controller");
-const { createEnrollmentSchema } = require("../validation/enrollmentValidation");
-const validator = require("../middleware/validator");
-//*controller methods
 
-
-router.post("/:courseId", validator(createEnrollmentSchema), enroll);
-router.get("/my-courses", validator(createEnrollmentSchema), getMyCourses);
-router.delete("/:courseId", validator(createEnrollmentSchema), unEnroll);
-
-
-
-
-
-
-
-
-
-
+router.post("/:courseId", protect, restrictTo("student"), enroll);
+router.get("/my-courses", protect, restrictTo("student"), getMyCourses);
+router.delete("/:courseId", protect, restrictTo("student"), unEnroll);
 
 module.exports = router;
