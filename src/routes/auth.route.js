@@ -1,6 +1,11 @@
 const router = require("express").Router();
-//*controller methods
-//*user is student or instructor
+
+const { register, login } = require("../controllers/auth.controller");
+
+router.post("/register", register);
+router.post("/login", login);
+
+module.exports = router;
 
 
 

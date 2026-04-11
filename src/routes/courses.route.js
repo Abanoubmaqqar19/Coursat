@@ -4,16 +4,38 @@ const {
   getCourse,
   createCourse,
   updateCourse,
-  deleteCourse
+  deleteCourse,
 } = require("../controllers/course.controller");
-const { createCourseSchema } = require("../validation/courseValidation");
-const validator = require("../middleware/validator");
-//*controller methods
 
-router.get("/",       validator(createCourseSchema), getCourses);
-router.get("/:id",    validator(createCourseSchema), getCourse);
-router.post("/",      validator(createCourseSchema), createCourse);
-router.put("/:id",    validator(createCourseSchema), updateCourse);
-router.delete("/:id", validator(createCourseSchema), deleteCourse);
+const { protect } = require("../middleware/auth.middleware");
+const { restrictTo } = require("../middleware/role.middleware");
+const validator = require("../middleware/validator");
+const {
+  createCourseSchema,
+  updateCourseSchema,
+} = require("../validation/courseValidation");
+
+// All users can access these routes
+router.get("/", getCourses);
+router.get("/:id", getCourse);
+
+// instructor only can access these routes
+router.post(
+  "/",
+  protect,
+  restrictTo("instructor"),
+  validator(createCourseSchema),
+  createCourse,
+);
+
+router.put(
+  "/:id",
+  protect,
+  restrictTo("instructor"),
+  validator(updateCourseSchema),
+  updateCourse,
+);
+
+router.delete("/:id", protect, restrictTo("instructor"), deleteCourse);
 
 module.exports = router;

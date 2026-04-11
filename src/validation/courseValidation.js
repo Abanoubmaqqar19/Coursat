@@ -4,19 +4,21 @@ const Joi = require("joi");
 const objectId = Joi.string().regex(/^[0-9a-fA-F]{24}$/);
 
 const createCourseSchema = Joi.object({
-  title: Joi.string().trim().min(3).max(200).required(),
-
-  description: Joi.string().allow("", null).optional(),
-
-  instructor: objectId.required(),
-
-  price: Joi.number().min(0).optional().default(0),
-
-  isPublished: Joi.boolean().optional().default(false),
-
-  category: Joi.string().trim().optional(),
+  title: Joi.string().min(3).required(),
+  description: Joi.string().optional(),
+  category: Joi.string().optional(),
+  price: Joi.number().min(0).default(0),
 });
-
+// ─── UPDATE ───────────────────────────
+const updateCourseSchema = Joi.object({
+  title:       Joi.string().min(3),
+  description: Joi.string(),
+  category:    Joi.string(),
+  price:       Joi.number().min(0),
+  isPublished: Joi.boolean()
+ 
+});
 module.exports = {
   createCourseSchema,
+  updateCourseSchema
 };

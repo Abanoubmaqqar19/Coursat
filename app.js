@@ -14,7 +14,8 @@ app.get("/", (req, res) => {
 });
 
 // app.use("/api/User");
-//!AllRoutes need fixed to be Nested after auth middlware
+
+app.use("/api/auth", require("./src/routes/auth.route"));
 app.use("/api/course", courseRoutes);
 app.use("/api/courses/:courseId/lessons", lessonRoutes);
 app.use("/api/enrollments", enrollmentRoutes);

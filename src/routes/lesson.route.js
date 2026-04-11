@@ -1,5 +1,5 @@
 const router = require("express").Router({ mergeParams: true });
-//*controller methods
+
 const {
   getLessons,
   getLesson,
@@ -7,14 +7,36 @@ const {
   updateLesson,
   deleteLesson,
 } = require("../controllers/lesson.controler");
-const { createLessonSchema } = require("../validation/lessonValidation");
-const validator = require("../middleware/validator");
-//*controller methods
 
-router.get("/", validator(createLessonSchema), getLessons);
-router.get("/:id", validator(createLessonSchema), getLesson);
-router.post("/", validator(createLessonSchema), createLesson);
-router.put("/:id", validator(createLessonSchema), updateLesson);
-router.delete("/:id", validator(createLessonSchema), deleteLesson);
+const { protect } = require("../middleware/auth.middleware");
+const { restrictTo } = require("../middleware/role.middleware");
+const validator = require("../middleware/validator");
+const {
+  createLessonSchema,
+  updateLessonSchema,
+} = require("../validation/lessonValidation");
+
+// public
+router.get("/", getLessons);
+router.get("/:id", getLesson);
+
+// instructor only can access these routes
+router.post(
+  "/",
+  protect,
+  restrictTo("instructor"),
+  validator(createLessonSchema),
+  createLesson,
+);
+
+router.put(
+  "/:id",
+  protect,
+  restrictTo("instructor"),
+  validator(updateLessonSchema),
+  updateLesson,
+);
+
+router.delete("/:id", protect, restrictTo("instructor"), deleteLesson);
 
 module.exports = router;
