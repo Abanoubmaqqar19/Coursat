@@ -6,11 +6,33 @@ const mongoose = require("mongoose");
  */
 const getCourses = async (req, res, next) => {
   try {
-    const courses = await Course.find();
+    // Pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    // Search
+    const search = req.query.search || "";
+    const filter = {};
+    if (search) {
+      filter.title = { $regex: search, $options: "i" };
+    }
+
+    // Query
+    const courses = await Course.find(filter)
+      .populate("instructor", "name email")
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+
+    const total = await Course.countDocuments(filter);
 
     res.status(200).json({
       success: true,
       count: courses.length,
+      total,
+      page,
+      pages: Math.ceil(total / limit),
       data: courses,
     });
   } catch (error) {
