@@ -9,7 +9,7 @@ Built as part of the **Information Technology Institute (ITI) Backend Developmen
 ## Author
  
 **Abanoub Maqqar**
-[LinkedIn](https://www.linkedin.com/in/abanoubmaqqar19)
+[LinkedIn](https://www.linkedin.com/in/abanoub-maqqar/)
  
 ---
  
@@ -226,8 +226,8 @@ Authorization: Bearer YOUR_JWT_TOKEN
 # Register
 POST /api/auth/register
 {
-  "name": "Ahmed",
-  "email": "ahmed@gmail.com",
+  "name": "Abanoub",
+  "email": "abanoub@gmail.com",
   "password": "123456",
   "role": "instructor"
 }
