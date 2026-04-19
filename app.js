@@ -2,7 +2,7 @@ const express = require("express");
 const courseRoutes = require("./src/routes/courses.route");
 const lessonRoutes = require("./src/routes/lesson.route");
 const enrollmentRoutes = require("./src/routes/enrollment.route");
-const commentsRouter = require("./src/routes/enrollment.route");
+const commentsRouter = require("./src/routes/comment.route");
 const errorMiddleware = require("./src/middleware/globlalErrorMiddleware");
 
 const app = express();
@@ -19,6 +19,11 @@ app.use("/api/course/:courseId/lessons", lessonRoutes);
 app.use("/api/enrollments", enrollmentRoutes);
 app.use("/api/comments", commentsRouter);
 
+// بعد app.use(express.json()) مباشرة
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
 app.use((req, res) => {
   res.status(404).json({
     success: false,

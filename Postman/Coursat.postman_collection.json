@@ -1,0 +1,729 @@
+{
+  "info": {
+    "_postman_id": "9680fce5-fb0e-4c03-b604-75ea70d9d895",
+    "name": "Coursat",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "44725466",
+    "_collection_link": "https://go.postman.co/collection/44725466-9680fce5-fb0e-4c03-b604-75ea70d9d895?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Courses",
+      "item": [
+        {
+          "name": "get all courses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/course",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "course"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all courses Pagination",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/course",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "course"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all courses  search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/course?search=html",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "course"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "html"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all courses  Pagination and Search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/course?page=1&limit=2&search=node",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "course"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "2"
+                },
+                {
+                  "key": "search",
+                  "value": "node"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create cours",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Node.js Complete Course\",\r\n  \"description\": \"Learn Node.js from scratch\",\r\n  \"category\": \"Backend\",\r\n  \"price\": 299,\r\n \"instructor\": \"64f1e3c9a1234567890abcd1\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/course",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "course"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get course by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/course/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "course",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "69c0376fa0c66ad1564a2333"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update course by id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Node.js Updated Course\",\r\n  \"price\": 19755\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/course/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "course",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "69c0376fa0c66ad1564a2333"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete cours by Id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/course/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "course",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "69c0376fa0c66ad1564a2333"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Lesson",
+      "item": [
+        {
+          "name": "get all lesson",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/courses/:courseId/lessons/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "courses",
+                ":courseId",
+                "lessons",
+                ""
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "69c0376fa0c66ad1564a2333"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create lesson",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Intro to Node.js\",\r\n  \"content\": \"Node.js is a runtime environment\",\r\n  \"order\": 1,\r\n  \"videoUrl\": \"https://youtube.com/watch?v=xyz\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/courses/:courseId/lessons",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "courses",
+                ":courseId",
+                "lessons"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "69c0376fa0c66ad1564a2333"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get lesson by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/courses/:courseId/lessons/:lesonID",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "courses",
+                ":courseId",
+                "lessons",
+                ":lesonID"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "69c0376fa0c66ad1564a2333"
+                },
+                {
+                  "key": "lesonID",
+                  "value": "69c049fcec9eaca380e9cbd0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update lesson by id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZGE2YmE4NDdkYmI3OTI1ZjBkNDE5MiIsImlhdCI6MTc3NTkyMjExOCwiZXhwIjoxNzc2NTI2OTE4fQ.GdCsmtkg8SX5VjNwK1uM7vvN06nd_6D_USFX8Ijj3M",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Updated Lesson Title v6\",\r\n  \"order\": 20\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/courses/:courseId/lessons/:lesonID",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "courses",
+                ":courseId",
+                "lessons",
+                ":lesonID"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "69c03795a0c66ad1564a2337"
+                },
+                {
+                  "key": "lesonID",
+                  "value": "69da74e3031e6161ae667ea0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete cours by Id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/courses/:courseId/lessons/:lesonID",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "courses",
+                ":courseId",
+                "lessons",
+                ":lesonID"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "69c0376fa0c66ad1564a2333"
+                },
+                {
+                  "key": "lesonID",
+                  "value": "69c049fcec9eaca380e9cbd0"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Enrollment",
+      "item": [
+        {
+          "name": "enroll in course",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/enrollments/:courseId",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "enrollments",
+                ":courseId"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "64f1a2b3c4d5e6f7a8b9c0d1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all coursers am enrolled",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/enrollments/my-courses",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "enrollments",
+                "my-courses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "unEnroll from course",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/enrollments/:courseId",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "enrollments",
+                ":courseId"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "64f1a2b3c4d5e6f7a8b9c0d1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": [
+        {
+          "name": "get all comments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/comments/:lessonId",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "comments",
+                ":lessonId"
+              ],
+              "variable": [
+                {
+                  "key": "lessonId",
+                  "value": "1234568745245124"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add comment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"text\":\"This is a comment about the lesson.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/comments/:lessonId",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "comments",
+                ":lessonId"
+              ],
+              "variable": [
+                {
+                  "key": "lessonId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete comment",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "//localhost:5000/api/courses/:courseId/:id",
+              "path": [
+                "",
+                "localhost:5000",
+                "api",
+                "courses",
+                ":courseId",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": ""
+                },
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Register  instructor",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Ahmed\",\r\n  \"email\": \"ahmed@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"instructor\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register  student",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Ahmed\",\r\n  \"email\": \"ahmed@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"instructor\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login instructor",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"ahmed@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login Student",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"ahmed@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
