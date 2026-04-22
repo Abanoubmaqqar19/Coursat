@@ -8,11 +8,16 @@ const addComment = async (req, res, next) => {
     const { text } = req.body;
     const { lessonId } = req.params;
 
-    const comment = await Comment.create({
+    const created = await Comment.create({
       text,
       lesson: lessonId,
-      student: req.user.id, // from auth middleware
+      student: req.user._id,
     });
+
+    const comment = await Comment.findById(created._id).populate(
+      "student",
+      "name email",
+    );
 
     res.status(201).json({
       success: true,
@@ -34,13 +39,6 @@ const getComments = async (req, res, next) => {
       .populate("student", "name email") 
       .sort({ createdAt: -1 });
 
-    if (!comments.length) {
-      return res.status(404).json({
-        success: false,
-        message: "No comments found",
-      });
-    }
-
     res.status(200).json({
       success: true,
       count: comments.length,
@@ -58,7 +56,7 @@ const deleteComment = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const comment = await Comment.findByIdAndDelete(id);
+    const comment = await Comment.findById(id);
 
     if (!comment) {
       return res.status(404).json({
@@ -66,6 +64,15 @@ const deleteComment = async (req, res, next) => {
         message: "Comment not found",
       });
     }
+
+    if (String(comment.student) !== String(req.user._id)) {
+      return res.status(403).json({
+        success: false,
+        message: "You can only delete your own comments",
+      });
+    }
+
+    await comment.deleteOne();
 
     res.status(200).json({
       success: true,
