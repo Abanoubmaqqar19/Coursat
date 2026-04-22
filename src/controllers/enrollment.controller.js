@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Enrollment = require("../models/enrollment.model");
+const Enrollment = require("../models/Enrollment.model.js");
 
 /**
  * ENROLL IN COURSE
