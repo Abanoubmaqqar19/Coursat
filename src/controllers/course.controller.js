@@ -1,4 +1,4 @@
-const Course = require("../models/course.model");
+const Course = require("../models/Course.model.js");
 const mongoose = require("mongoose");
 
 /**
@@ -54,7 +54,7 @@ const getCourse = async (req, res, next) => {
       });
     }
 
-    const course = await Course.findById(id);
+    const course = await Course.findById(id).populate("instructor", "name email");
 
     if (!course) {
       return res.status(404).json({
